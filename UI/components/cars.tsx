@@ -8,6 +8,7 @@ import { toast } from "sonner";
 import { CarTypes } from "@/types/all-types";
 import { Button } from "./ui/button";
 import { Car, Delete, Trash2 } from "lucide-react";
+import { ScrollArea } from "./ui/scroll-area";
 
 type AddCarProps = {
 	userId: number
@@ -78,34 +79,37 @@ export function Cars({ userId }: AddCarProps) {
 				</div>
 			</CardHeader>
 			<CardContent>
-				{cars.length === 0 && <div className="text-center">
-					<p className="text-muted-foreground">No cars found</p>
-				</div>}
-				{cars.length > 0 && <Table>
-					<TableHeader>
-						<TableRow>
-							<TableHead>Car Model</TableHead>
-							<TableHead className="text-right">Action</TableHead>
-						</TableRow>
-					</TableHeader>
-					<TableBody>
-						{cars.map((car) => (
-							<TableRow key={car.id}>
-								<TableCell>
-									<div className="font-medium">{car.model}</div>
-									<div className="hidden text-sm text-muted-foreground md:inline">
-										{car.year}
-									</div>
-								</TableCell>
-								<TableCell className="text-right">
-									<Button variant='ghost' size='icon' onClick={() => onDelete(car.id)}>
-										<Trash2 className="h-4 w-4" />
-									</Button>
-								</TableCell>
+
+				<ScrollArea className="h-80">
+					{cars.length === 0 && <div className="text-center">
+						<p className="text-muted-foreground">No cars found</p>
+					</div>}
+					{cars.length > 0 && <Table>
+						<TableHeader>
+							<TableRow>
+								<TableHead>Car Model</TableHead>
+								<TableHead className="text-right">Action</TableHead>
 							</TableRow>
-						))}
-					</TableBody>
-				</Table>}
+						</TableHeader>
+						<TableBody>
+							{cars.map((car) => (
+								<TableRow key={car.id}>
+									<TableCell>
+										<div className="font-medium">{car.model}</div>
+										<div className="hidden text-sm text-muted-foreground md:inline">
+											{car.year}
+										</div>
+									</TableCell>
+									<TableCell className="text-right">
+										<Button variant='ghost' size='icon' onClick={() => onDelete(car.id)}>
+											<Trash2 className="h-4 w-4" />
+										</Button>
+									</TableCell>
+								</TableRow>
+							))}
+						</TableBody>
+					</Table>}
+				</ScrollArea>
 			</CardContent>
 		</Card>
 	);

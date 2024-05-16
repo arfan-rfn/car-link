@@ -1,6 +1,7 @@
 'use client'
 import { Cars } from "@/components/cars"
 import { Chat } from "@/components/chat"
+import { LoginCard } from "@/components/login-card"
 import { ProfileCard } from "@/components/profile-card"
 import { useAuthStore } from "@/store/auth"
 
@@ -14,6 +15,7 @@ export default function Index() {
           <ProfileCard/>
         </div>
         <div className="grid gap-4 md:gap-8 lg:grid-cols-2 xl:grid-cols-3">
+          <LoginCard/>
           {userDetails && <Cars userId={userDetails.id}/>}
           <Chat />
         </div>
