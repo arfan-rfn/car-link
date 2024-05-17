@@ -1,0 +1,30 @@
+version: "3.8"
+
+services:
+  nextjs:
+    build: ./UI
+    ports:
+      - "3000:3000"
+    networks:
+      - app-network
+
+  java:
+    build: ./CarLinkApi
+    ports:
+      - "8080:8080"
+    networks:
+      - app-network
+    depends_on:
+      - rabbitmq # Ensure RabbitMQ is started first
+
+  rabbitmq:
+    image: "rabbitmq:3-management" # Using RabbitMQ with management plugin
+    ports:
+      - "5672:5672" # Default RabbitMQ port
+      - "15672:15672" # RabbitMQ management dashboard
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
