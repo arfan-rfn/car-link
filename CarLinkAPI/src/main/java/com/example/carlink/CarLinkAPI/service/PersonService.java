@@ -27,6 +27,9 @@ public class PersonService implements UserDetailsService {
     @Autowired
     private SecurityConfig securityConfig;
 
+    @Autowired
+    private MessagingService messagingService;
+
     public Person createPerson(Person person) {
         person.setPassword(passwordEncoder.encode(person.getPassword())); // Encoding password before saving
         return personRepository.save(person);
@@ -45,6 +48,7 @@ public class PersonService implements UserDetailsService {
     }
 
     public Person save(Person person) {
+        messagingService.sendMessage("topicExchange", "user.signup", "New user registered: " + person.getName());
         return personRepository.save(person);
     }
 
